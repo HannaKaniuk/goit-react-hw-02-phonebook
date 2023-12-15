@@ -1,3 +1,4 @@
+import css from './Filter.module.css';
 export const Filter = ({ filter, onChange }) => {
   return (
     <input
@@ -5,6 +6,7 @@ export const Filter = ({ filter, onChange }) => {
       name="filter"
       value={filter}
       onChange={event => onChange(event)}
+      className={css.filterInput}
     />
   );
 };

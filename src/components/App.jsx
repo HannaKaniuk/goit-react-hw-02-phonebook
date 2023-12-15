@@ -48,22 +48,50 @@ export class App extends Component {
         style={{
           height: '100%',
           display: 'flex',
-          justifyContent: 'flex-start',
+          justifyContent: 'center',
           alignItems: 'center',
           fontSize: 40,
           color: '#010101',
-          margin: '30px',
         }}
       >
-        <div>
-          <h1>Phonebook</h1>
+        <div
+          style={{
+            width: '80%',
+            margin: 40,
+          }}
+        >
+          <h1
+            style={{
+              fontSize: 50,
+              color: 'rgb(54, 54, 54)',
+              textAlign: 'center',
+            }}
+          >
+            Phonebook
+          </h1>
           <ContactForm
             onAdd={this.handleAddContact}
             onCheckUnique={this.handleCheckUnique}
           />
 
-          <h2>Contacts</h2>
-          <h3>Find contacts by name</h3>
+          <h2
+            style={{
+              fontSize: 40,
+              color: 'rgb(54, 54, 54)',
+              textAlign: 'center',
+            }}
+          >
+            Contacts
+          </h2>
+          <h3
+            style={{
+              fontSize: 35,
+              color: 'rgb(54, 54, 54)',
+              margin: 0,
+            }}
+          >
+            Find contacts by name
+          </h3>
           <Filter filter={filter} onChange={this.handleFilterChange} />
 
           <ContactList
