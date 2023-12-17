@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { nanoid } from 'nanoid';
 import { ContactForm } from './ContactForm/ContactForm';
 import { ContactList } from './ContactList/ContactList';
 import { Filter } from './Filter/Filter';
@@ -15,13 +16,19 @@ export class App extends Component {
   };
 
   handleAddContact = newContact => {
+    const isExist = this.handleCheckUnique(newContact.name);
+
+    if (isExist) return false;
+
     this.setState(({ contacts }) => ({
-      contacts: [...contacts, newContact],
+      contacts: [...contacts, { id: nanoid(), newContact }],
     }));
+
+    return true;
   };
   handleCheckUnique = name => {
     const { contacts } = this.state;
-    const isExistContact = !!contacts.find(contact => contact.name === name);
+    const isExistContact = !!contacts.some(contact => contact.name === name);
     isExistContact && alert('Contact is already exist');
     return !isExistContact;
   };
@@ -29,6 +36,7 @@ export class App extends Component {
     this.setState(({ contacts }) => ({
       contacts: contacts.filter(contact => contact.id !== id),
     }));
+
   handleFilterChange = event => {
     const filter = event.target.value;
     this.setState({ filter });

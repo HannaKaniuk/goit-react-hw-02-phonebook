@@ -1,5 +1,4 @@
 import { Component } from 'react';
-import { nanoid } from 'nanoid';
 import css from './ContactForm.module.css';
 
 const INITIAL_STATE = {
@@ -19,15 +18,13 @@ export class ContactForm extends Component {
     e.preventDefault();
 
     const { name, number } = this.state;
-    const { onAdd, onCheckUnique } = this.props;
-
+    const { onAdd } = this.props;
     const isValidatedForm = this.validateForm();
     if (!isValidatedForm) return;
 
-    const isUnique = onCheckUnique(name);
-    if (!isUnique) return;
+    const isSuccess = onAdd({ name, number });
+    if (!isSuccess) return;
 
-    onAdd({ id: 'id' + nanoid(), name, number });
     this.resetForm();
   };
 
@@ -55,9 +52,11 @@ export class ContactForm extends Component {
         <input
           type="text"
           name="name"
+          id="nameInput"
           value={name}
           onChange={this.handleChangeForm}
           className={css.inputContact}
+          autoComplete="name"
         />
         <label htmlFor="phoneInput" className={css.labelInput}>
           Number
@@ -65,10 +64,12 @@ export class ContactForm extends Component {
         <input
           type="tel"
           name="number"
+          id="phoneInput"
           value={number}
           required
           onChange={this.handleChangeForm}
           className={css.inputContact}
+          autoComplete="tel"
         />
         <button type="submit" className={css.buttonContact}>
           Add Contact
