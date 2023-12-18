@@ -21,7 +21,7 @@ export class App extends Component {
     if (isExist) return false;
 
     this.setState(({ contacts }) => ({
-      contacts: [...contacts, { id: nanoid(), newContact }],
+      contacts: [...contacts, { id: nanoid(), ...newContact }],
     }));
 
     return true;
@@ -30,8 +30,9 @@ export class App extends Component {
     const { contacts } = this.state;
     const isExistContact = !!contacts.some(contact => contact.name === name);
     isExistContact && alert('Contact is already exist');
-    return !isExistContact;
+    return isExistContact;
   };
+
   handleRemoveContact = id =>
     this.setState(({ contacts }) => ({
       contacts: contacts.filter(contact => contact.id !== id),
@@ -77,10 +78,7 @@ export class App extends Component {
           >
             Phonebook
           </h1>
-          <ContactForm
-            onAdd={this.handleAddContact}
-            onCheckUnique={this.handleCheckUnique}
-          />
+          <ContactForm onAdd={this.handleAddContact} />
 
           <h2
             style={{

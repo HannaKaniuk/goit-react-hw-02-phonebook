@@ -19,8 +19,6 @@ export class ContactForm extends Component {
 
     const { name, number } = this.state;
     const { onAdd } = this.props;
-    const isValidatedForm = this.validateForm();
-    if (!isValidatedForm) return;
 
     const isSuccess = onAdd({ name, number });
     if (!isSuccess) return;
